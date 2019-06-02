@@ -66,7 +66,7 @@ void TimingISR()
 }
 
 void display_timer_not_running() {
-  TimeDisp[3] = 0;//(timer_ms_duration / 10) % 10;
+  TimeDisp[3] = 0;
   TimeDisp[2] = timer_ms_duration >= TIMER_SMALL_STEP_LIMIT_IN_MS ? ((timer_ms_duration / 10) / 100 * 10) % 10 : ((timer_ms_duration / 10) / 10) % 10;
   TimeDisp[1] = ((timer_ms_duration / 10) / 100) % 10;
   TimeDisp[0] = ((timer_ms_duration / 10) / 1000) % 10;
