@@ -5,10 +5,16 @@
 #define BUTTON_DECREASE 11
 #define BUTTON_TIMER 10
 
+#define BUTTON_TIMER_STOP_DURATION_IN_MS 1500
+#define BUTTON_TIMER_RESET_DURATION_IN_MS 3000
+
 int buttonState0 = 0;
 int buttonState1 = 0;
 int buttonState2 = 0;
 int buttonState3 = 0;
+
+bool is_button_timer_pressed = false;
+unsigned long button_timer_press_duration = 0;
 
 Bounce debouncerForce = Bounce();
 Bounce debouncerIncrease = Bounce();
@@ -65,6 +71,20 @@ void read_buttons(){
   
   if(debouncerDecrease.rose()) {
     stop_decrease_timer();
+  }
+
+  // Timer button
+  if(debouncerTimer.fell()) {
+    button_timer_press_duration = 0;
+    is_button_timer_pressed = true;
+  }
+  
+  if(debouncerTimer.rose()) {
+    is_button_timer_pressed = false;
+    
+    if(button_timer_press_duration < BUTTON_TIMER_STOP_DURATION_IN_MS) {
+      toggle_timer();
+    }
   }
   
   buttonState2 = digitalRead(BUTTON_DECREASE);
