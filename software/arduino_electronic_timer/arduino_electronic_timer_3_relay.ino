@@ -8,7 +8,7 @@ void init_relay() {
 }
 
 void update_relay() {
-  if(is_relay_on || is_relay_on_forced) {
+  if(is_relay_on == true || is_relay_on_forced == true) {
     digitalWrite(RELAY_SIG, HIGH);
   }
   else {
